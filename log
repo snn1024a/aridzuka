@@ -23807,3 +23807,8 @@ ok=== git add OK
  create mode 100755 queen_job
 === git commit OK
 === git push FAIL
+
+==============================  Wed  8 May 15:51:01 BST 2019  =================================
+=== Resolved-212.139.211.7 it's valid ip
+=== Resolved-212.139.211.7 is different than git stored-212.139.211.8. Must be updated online.
+ok=== git add OK
