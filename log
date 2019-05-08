@@ -23800,3 +23800,10 @@ nothing added to commit but untracked files present
 === Resolved-212.139.211.7 it's valid ip
 === Resolved-212.139.211.7 is different than git stored-212.139.211.8. Must be updated online.
 ok=== git add OK
+[master acf2091] queen_changed
+ 3 files changed, 23846 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 log
+ create mode 100755 queen_job
+=== git commit OK
+=== git push FAIL
