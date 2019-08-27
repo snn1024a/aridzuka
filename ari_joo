@@ -5,7 +5,7 @@ echo "
 ==============================  $(date)  ================================="
 localStore="$PP/ari_joo_ip"
 regexIp="([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])"
-resolvedIp=$(dig +short myip.opendns.com @resolver1.opendns.com)
+resolvedIp=$(wget http://ipecho.net/plain -O - -q; echo)
 gitStoredIp=$(curl https://raw.githubusercontent.com/snn1024a/aridzuka/master/ari_joo_ip)
 localStoredIp=$(cat $localStore)
 	if [[ $resolvedIp =~ ^$regexIp\.$regexIp\.$regexIp\.$regexIp$ ]]
@@ -25,9 +25,9 @@ localStoredIp=$(cat $localStore)
                 	        then sleep 3
 				     echo "=== git commit OK"
 				     git --git-dir="$PP/.git" --work-tree="$PP/" push --verbose
-                                	if [ $? -eq 0 ]
-                                	then echo "=== git push OK"
-                                	else echo "=== git push FAIL"
+                                	if [ $? -eq 0 ] ;then
+						echo "=== git push OK"
+                                		else echo "=== git push FAIL"
                                 	fi
 				else echo "=== git commit FAIL"
                                 fi
