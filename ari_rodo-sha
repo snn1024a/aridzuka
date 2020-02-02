@@ -1,20 +1,30 @@
 #!/bin/bash
-while :
-do
-gitStoredIp=$(curl -s https://raw.githubusercontent.com/snn1024a/aridzuka/master/ari_joo_ip);
-                wait;
-                sleep 23;
-         if  ps aux|grep autossh|grep -o $gitStoredIp
-                then
-                sleep 810;
+aSshPort="10010" #auto ssh port
+rSshPort="20010" #reverse ssh port
+for (( ; ; ))
+        do
+        gitStoredIp=$(curl -s https://raw.githubusercontent.com/snn1024a/aridzuka/master/ari_joo_ip);
+        wait;
+        echo "gitStoredIp: $gitStoredIp"
+        connectedIp=$(ps aux|grep -v "grep"|grep "autossh -M $aSshPort"|grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b");
+        wait;
+        echo "connectedIp: $connectedIp"
+        autoSshPid=$(ps aux|grep -v "grep"|grep "autossh -M $aSshPort"|awk '{print $2}');
+        wait;
+        echo " autoSshPid: $autoSshPid"
+        sleep 5;
+        if [ "$gitStoredIp" == "$connectedIp" ]; then
+                        sleep 1000;
                 else
-                autossh -M 10020 \
+                        kill -9 $autoSshPid;
+                        sleep 10;
+                        autossh -M $aSshPort \
                                         -N \
                                         -q \
                                         -o "PubkeyAuthentication=yes" \
                                         -o "PasswordAuthentication=no" \
                                         -i /home/docker/.ssh/docker \
-                                        -R 20020:localhost:22 docker@$gitStoredIp \
+                                        -R $rSshPort:localhost:22 docker@$gitStoredIp \
                                         -p 22
         fi
 done
