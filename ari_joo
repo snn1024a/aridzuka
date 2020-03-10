@@ -17,12 +17,12 @@ localStoredIp=$(cat $localStore)
 		     curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Queen IP: $resolvedIp\"}" $url
 		     echo $resolvedIp > $localStore
 		     git --git-dir="$PP/.git" --work-tree="$PP/" add --verbose $localStore
-			if [ $? -eq 0 ]
-			then sleep 1
+			if [ $? -eq 0 ]; then
+				sleep 1
 			     echo "=== git add OK"
 			     git --git-dir="$PP/.git" --work-tree="$PP/" commit --verbose -am "queen_changed"
-				if [ $? -eq 0 ]
-                	        then sleep 3
+				if [ $? -eq 0 ]; then
+					sleep 3
 				     echo "=== git commit OK"
 				     git --git-dir="$PP/.git" --work-tree="$PP/" push --verbose
                                 	if [ $? -eq 0 ] ;then
