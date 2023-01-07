@@ -24,15 +24,15 @@ localStoredIpD=$(cat $localStore| openssl enc -base64 -d -aes-256-cbc -salt -pas
 		else echo "=== Resolved-$resolvedIp is different than git stored-$gitStoredIpD. Must be updated online.">>$logFile
 #		     curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Queen IP: $resolvedIp\"}" $url
 		     echo $resolvedIpE>$localStore
-		     git --git-dir="$PP/.git" --work-tree="$PP/" add --verbose $localStore
+		     git --git-dir="$PP/.git" --work-tree="$PP/" add --verbose $localStore >>$logFile
 			if [ $? -eq 0 ]; then
 				sleep 1
 			     echo "=== git add OK">>$logFile
-			     git --git-dir="$PP/.git" --work-tree="$PP/" commit --verbose -am "queen_changed"
+			     git --git-dir="$PP/.git" --work-tree="$PP/" commit --verbose -am "queen_changed" >>$logFile
 				if [ $? -eq 0 ]; then
 					sleep 3
 				     echo "=== git commit OK">>$logFile
-				     git --git-dir="$PP/.git" --work-tree="$PP/" push --verbose
+				     git --git-dir="$PP/.git" --work-tree="$PP/" push --verbose >>$logFile
                                 	if [ $? -eq 0 ] ;then
 						echo "=== git push OK">>$logFile
                                 	else 
