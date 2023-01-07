@@ -31,8 +31,8 @@ localStoredIpD=$(cat $localStore| openssl enc -base64 -d -aes-256-cbc -salt -pas
 			     git --git-dir="$PP/.git" --work-tree="$PP/" commit --verbose -am "queen_changed" >>$logFile
 				if [ $? -eq 0 ]; then
 					sleep 3
-				     echo "=== git commit OK">>$logFile
-				     git --git-dir="$PP/.git" --work-tree="$PP/" push --verbose >>$logFile
+				     	echo "=== git commit OK">>$logFile
+				     	git --git-dir="$PP/.git" --work-tree="$PP/" push -f --verbose >>$logFile
                                 	if [ $? -eq 0 ] ;then
 						echo "=== git push OK">>$logFile
                                 	else 
