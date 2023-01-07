@@ -12,12 +12,11 @@ gitStoredIp=$(echo $gitStoredIp| openssl enc -base64 -d -aes-256-cbc -salt -pass
 localStoredIp=$(cat $localStore)
 	if [[ $resolvedIp =~ ^$regexIp\.$regexIp\.$regexIp\.$regexIp$ ]]
 	then echo "=== Resolved-$resolvedIp it's valid ip"
-		echo "This is a sample string" | openssl enc -base64 -e -aes-256-cbc -salt -pass pass:SuperS3curePassw0rd! -pbkdf2
 		if [[ $resolvedIp == $gitStoredIp ]]
 		then echo "=== Resolved-$resolvedIp is the same as git stored-$gitStoredIp. No action required."
 		     exit 0
 		else echo "=== Resolved-$resolvedIp is different than git stored-$gitStoredIp. Must be updated online."
-		     curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Queen IP: $resolvedIp\"}" $url
+#		     curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Queen IP: $resolvedIp\"}" $url
 		     echo $resolvedIp > $localStore
 		     git --git-dir="$PP/.git" --work-tree="$PP/" add --verbose $localStore
 			if [ $? -eq 0 ]; then
