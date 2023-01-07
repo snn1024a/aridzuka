@@ -9,6 +9,7 @@ resolvedIp=$(wget http://ipecho.net/plain -O - -q; echo);echo -en "resolvedIp: "
 
 gitStoredIp=$(curl https://raw.githubusercontent.com/snn1024a/aridzuka/master/ari_joo_ip);echo -en "gitStoredIp: "; echo $gitStoredIp
 gitStoredIpD=$(echo $gitStoredIp| openssl enc -base64 -d -aes-256-cbc -salt -pass pass:$osp -pbkdf2);echo -en "gitStoredIpD: "; echo $gitStoredIpD
+gitStoredIpE=$(echo $gitStoredIpD| openssl enc -base64 -e -aes-256-cbc -salt -pass pass:$osp -pbkdf2);echo -en "gitStoredIpE: "; echo $gitStoredIpE
 
 localStoredIpD=$(cat $localStore| openssl enc -base64 -e -aes-256-cbc -salt -pass pass:$osp -pbkdf2)
 	if [[ $resolvedIp =~ ^$regexIp\.$regexIp\.$regexIp\.$regexIp$ ]]
